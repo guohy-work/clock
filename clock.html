@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>郭鸿宇</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .clock {
+        width: 400px;
+        height: 400px;
+        margin: 100px auto;
+        position: relative;
+        border-radius: 50%;
+        border: 1px solid #000;
+    }
+    
+    .hou {
+        width: 6px;
+        height: 100px;
+        background: #000;
+        position: absolute;
+        left: 50%;
+        top: 100px;
+        margin-left: -3px;
+        border-radius: 50% 50% 0 0;
+        -webkit-transform-origin: bottom;
+    }
+    
+    .min {
+        width: 4px;
+        height: 130px;
+        background: #000;
+        position: absolute;
+        left: 50%;
+        top: 70px;
+        margin-left: -2px;
+        border-radius: 50% 50% 0 0;
+        -webkit-transform-origin: bottom;
+    }
+    
+    .sec {
+        width: 2px;
+        height: 160px;
+        background: red;
+        position: absolute;
+        left: 50%;
+        top: 40px;
+        margin-left: -1px;
+        border-radius: 50% 50% 0 0;
+        -webkit-transform-origin: bottom;
+    }
+    
+    .cap {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background: #ccc;
+        left: 50%;
+        top: 50%;
+        margin-left: -5px;
+        margin-top: -5px;
+        border-radius: 50%;
+    }
+    
+    .time {
+        width: 100px;
+        height: 30px;
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        margin-left: -50px;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 30px;
+        text-align: center;
+    }
+    
+    .clock span {
+        width: 4px;
+        height: 10px;
+        background: #000;
+        position: absolute;
+        left: 50%;
+        margin-left: -2px;
+        top: 0;
+        -webkit-transform-origin: center 200px;
+    }
+    
+    span b {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 50%;
+        margin-left: -10px;
+        text-align: center;
+        top: 20px;
+    }
+    </style>
+    <script>
+    function toDou(n) {
+        if (n < 10) {
+            return '0' + n;
+        } else {
+            return '' + n;
+        }
+    }
+    window.onload = function() {
+        var oClock = document.querySelector('.clock');
+        var oHou = document.querySelector('.hou');
+        var oMin = document.querySelector('.min');
+        var oSec = document.querySelector('.sec');
+        var oCap = document.querySelector('.cap');
+        var oTime = document.querySelector('.time');
+        var N = 60;
+        for (var i = 0; i < N; i++) {
+            var oS = document.createElement('span');
+            oS.style.WebkitTransform = 'rotate(' + (i * 6) + 'deg)';
+            if (i % 5 == 0) {
+                oS.innerHTML = '<b>' + (i / 5 || 12) + '</b>';
+                oS.style.height = '20px';
+                var oB = oS.children[0];
+                oB.style.WebkitTransform = 'rotate(' + (-i * 6) + 'deg)';
+            }
+            oClock.appendChild(oS);
+        }
+
+        function clock() {
+            var oDate = new Date();
+            var h = oDate.getHours();
+            var m = oDate.getMinutes();
+            var s = oDate.getSeconds();
+            oTime.innerHTML = toDou(h) + ':' + toDou(m) + ':' + toDou(s);
+            oHou.style.WebkitTransform = 'rotate(' + (h * 30 + m / 60 * 6) + 'deg)';
+            oMin.style.WebkitTransform = 'rotate(' + (m * 6 + s / 60 * 6) + 'deg)';
+            oSec.style.WebkitTransform = 'rotate(' + (s * 6) + 'deg)';
+        }
+        clock();
+        setInterval(function() {
+            clock();
+        }, 1000);
+    };
+    </script>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="hou"></div>
+        <div class="min"></div>
+        <div class="sec"></div>
+        <div class="cap"></div>
+        <div class="time"></div>
+    </div>
+</body>
+
+</html>
